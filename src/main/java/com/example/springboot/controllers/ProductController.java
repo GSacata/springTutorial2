@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import com.example.springboot.dtos.ProductRecordDTO;
 import com.example.springboot.models.ProductModel;
 import com.example.springboot.repositories.ProductRepository;
@@ -37,7 +40,14 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity<List<ProductModel>> getAllProducts() {
-        return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
+        List<ProductModel> productList = productRepository.findAll();
+        if(!productList.isEmpty()) {
+            for (ProductModel product : productList) {
+                UUID id = product.getIdProduct();
+                product.add(linkTo(methodOn(ProductController.class).getOneProduct(id)).withSelfRel());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
 
     @GetMapping("/products/{id}")
