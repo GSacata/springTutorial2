@@ -22,6 +22,7 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
     private UUID idProduct;
     private String name;
     private BigDecimal value;
+    private String description;
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -49,6 +50,14 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
     
     public void setValue(BigDecimal value) {
         this.value = value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     
