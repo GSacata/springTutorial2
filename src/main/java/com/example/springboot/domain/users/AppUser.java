@@ -28,27 +28,27 @@ public class AppUser implements UserDetails{
     public String getId() {
         return id;
     }
-    
+
     public void setId(String id) {
         this.id = id;
     }
-    
+
     public String getLogin() {
         return login;
     }
-    
+
     public void setLogin(String login) {
         this.login = login;
     }
-    
+
     public String getPassword() {
         return password;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String getRole() {
         return role;
     }
@@ -71,26 +71,26 @@ public class AppUser implements UserDetails{
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO Auto-generated method stub
-        return UserDetails.super.isAccountNonExpired();
+        // return UserDetails.super.isAccountNonExpired();
+        return true;
     }
-
+    
     @Override
     public boolean isAccountNonLocked() {
-        // TODO Auto-generated method stub
-        return UserDetails.super.isAccountNonLocked();
+        // return UserDetails.super.isAccountNonLocked();
+        return true;
     }
-
+    
     @Override
     public boolean isCredentialsNonExpired() {
-        // TODO Auto-generated method stub
-        return UserDetails.super.isCredentialsNonExpired();
+        // return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
-
+    
     @Override
     public boolean isEnabled() {
-        // TODO Auto-generated method stub
-        return UserDetails.super.isEnabled();
+        // return UserDetails.super.isEnabled();
+        return true;
     }
     
 }
