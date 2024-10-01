@@ -1,8 +1,10 @@
 package com.example.springboot.domain.users;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
@@ -11,6 +13,8 @@ import jakarta.persistence.Table;
 // import lombok.EqualsAndHashCode;
 // import lombok.Getter;
 // import lombok.NoArgsConstructor;
+
+// import com.example.springboot.domain.users.AppUserRoles;
 
 @Table(name="app_users")
 @Entity(name="app_users")
@@ -23,7 +27,7 @@ public class AppUser implements UserDetails{
     private String id;
     private String login;
     private String password;
-    private String role; // Será feito enum
+    private AppUserRoles role; // Será feito enum
     
     public String getId() {
         return id;
@@ -49,24 +53,26 @@ public class AppUser implements UserDetails{
         this.password = password;
     }
 
-    public String getRole() {
+    public AppUserRoles getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(AppUserRoles role) {
         this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+        // throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+        // return null;
+        if (this.role == AppUserRoles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getUsername() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+        // throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+        return login;
     }
 
     @Override
