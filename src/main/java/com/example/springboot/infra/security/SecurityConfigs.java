@@ -22,6 +22,8 @@ public class SecurityConfigs {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(HttpMethod.POST, "/auth/register").permitAll() // Só para testes, o ideal é que só usuários autorizados possam se registrar para fazer adição de novos produtos e coisa do tipo
+                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/products").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )

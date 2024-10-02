@@ -27,6 +27,7 @@ import jakarta.persistence.Table;
 // @EqualsAndHashCode(of="id")
 public class AppUser implements UserDetails{
     
+    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -35,6 +36,16 @@ public class AppUser implements UserDetails{
     private String password;
     private AppUserRoles role; // Será feito enum
     
+
+    public AppUser() {
+    }
+
+    public AppUser(String login, String password, AppUserRoles role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getId() {
         return id;
     }
@@ -66,6 +77,7 @@ public class AppUser implements UserDetails{
     public void setRole(AppUserRoles role) {
         this.role = role;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
